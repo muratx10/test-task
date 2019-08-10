@@ -84,11 +84,11 @@ window.addEventListener('DOMContentLoaded', () => {
             // db.child(`User ${id}`).child('e-mail').set(email.value);
             // db.child(`User ${id}`).child('passkey').set(password.value);
             // id++;
-            db.child(`User ${id}`).set({
+            db.push().set({
                 'E-mail': email.value,
                 'Password': password.value
             });
-            id++;
+            // id++;
 
             injectHTML(email.value);
             loginForm.reset();
