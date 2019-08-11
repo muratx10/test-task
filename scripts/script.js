@@ -64,48 +64,37 @@ window.addEventListener('DOMContentLoaded', () => {
         userList.innerHTML += html;
     };
 
-    //user id in database
-    let id = 1;
-
     submit.addEventListener('click', e => {
         e.preventDefault();
         let emailValid = email.classList.value;
         let passwordValid = password.classList.value;
-        // let usrExists = allUsers.forEach(item => {
-        //     return item.email === email.value
-        // });
         if (emailValid.includes('is-valid') && email.value.length < 40 && passwordValid.includes('is-valid')) {
-            // let obj = {
-            //     'email': email.value,
-            //     'password': password.value
-            // };
-            // allUsers.push(obj);
-            
-            // db.child(`User ${id}`).child('e-mail').set(email.value);
-            // db.child(`User ${id}`).child('passkey').set(password.value);
-            // id++;
             db.push().set({
                 'E-mail': email.value,
                 'Password': password.value
             });
-            // id++;
 
             injectHTML(email.value);
             loginForm.reset();
             email.classList.remove('is-valid');
             password.classList.remove('is-valid');
         } else return false;
-
-
     });
 
+    const refer = firebase.database().ref();
+    refer.once('value', getData);
 
+    function getData(data) {
+        let val = data.val();
+        let keys = Object.keys(val);
+        for (let i = 0; i < keys.length; i++) {
+            let k = keys[i];
+            let emailValue = val[k]['E-mail'];
+            console.log(emailValue);
+            injectHTML(emailValue);
+        }
+    };
+});
 
-
-
-
-    
-    
-
-
-})
+//на написание кода суммарно времени ушло около 5-6 часов
+// за позднюю сдачу таска извиняюсь :(
