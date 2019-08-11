@@ -1,9 +1,11 @@
-.loginForm {
+.loginForm, .userList {
     width: 400px;
     margin: 20px auto;
 }
 
-.userList {
-    width: 400px;
-    margin: 20px auto;
+@media all and (max-width: 910px) {
+    .loginForm, .userList {
+        max-width: 400px;
+        width: 90%;
+    }
 }
